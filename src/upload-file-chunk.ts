@@ -2,11 +2,11 @@ import SparkMD5 from 'spark-md5';
 
 type ProgressFn = (progress: number) => void;
 
-type SuccessFn = (endpoint: string, md5: string, chunkId: string) => void;
+type SuccessFn = (endpoint: string, md5: string, response: any) => void;
 
 type ErrorFn = (error: IUploadChunkError) => void;
 
-interface IOptions {
+interface IConfig {
   file: File;
   endpoint: string;
   /** Size per chunk Kilobyte (KB), must be divisible by 256 */
@@ -48,22 +48,27 @@ export default class UploadChunk {
   private _saveMd5: string;
 
   private _reader: FileReader;
+  private _abortController: AbortController;
+  private _signal: AbortSignal;
 
-  constructor(options: IOptions) {
-    this._file = options.file;
-    this._endpoint = options.endpoint;
-    this._retries = options.retries || 5;
+  constructor(config: IConfig) {
+    this._file = config.file;
+    this._endpoint = config.endpoint;
+    this._retries = config.retries || 5;
     this._retryCount = 0;
-    this._chunkSize = options.chunkSizeKb;
+    this._chunkSize = config.chunkSizeKb;
     this._totalChunk = Math.ceil(this._file.size / this._chunkSize);
     this._chunkIndex = 0;
     this._saveMd5 = '';
 
-    this._setProgress = options.setProgress;
-    this._setSuccess = options.onSuccess;
-    this._setError = options.onError;
+    this._setProgress = config.setProgress;
+    this._setSuccess = config.onSuccess;
+    this._setError = config.onError;
     this._paused = false;
     this._success = false;
+
+    this._abortController = new AbortController()
+    this._signal = this._abortController.signal
 
     this._reader = new FileReader();
 
@@ -115,6 +120,7 @@ export default class UploadChunk {
       headers,
       method: 'PUT',
       body: formdata,
+      signal: this._signal
     };
 
     return fetch(this._endpoint, requestOptions).then((response) => response.json());
@@ -128,7 +134,7 @@ export default class UploadChunk {
       this._retryCount += 1;
       const response = await this._uploadChunk();
       // Set new endpoint base on the response
-      this._endpoint = response.data.url;
+      this._endpoint = response.hasOwnProperty('data') ? response.data.url : response.url;
 
       this._retryCount = 0;
       this._chunkIndex += 1;
@@ -177,6 +183,7 @@ export default class UploadChunk {
 
   public abort(): void {
     this.pause();
+    this._abortController.abort()
   }
 
   public pause(): void {
@@ -203,4 +210,4 @@ export default class UploadChunk {
   }
 }
 
-export const upload = (options: IOptions): UploadChunk => new UploadChunk(options);
+export const upload = (config: IConfig): UploadChunk => new UploadChunk(config);
