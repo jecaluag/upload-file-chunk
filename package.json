@@ -1,0 +1,26 @@
+{
+  "name": "upload-chunk-file",
+  "version": "1.0.0",
+  "description": "A utility library for uploading files in chunks",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jecaluag/upload-file-chunk.git"
+  },
+  "author": "John Erniemar Caluag",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jecaluag/upload-file-chunk/issues"
+  },
+  "homepage": "https://github.com/jecaluag/upload-file-chunk#readme",
+  "dependencies": {
+    "spark-md5": "^3.0.2"
+  }
+}
