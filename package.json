@@ -1,5 +1,5 @@
 {
-  "name": "upload-chunk-file",
+  "name": "upload-file-chunk",
   "version": "1.0.0",
   "description": "A utility library for uploading files in chunks",
   "main": "dist/index.js",

@@ -134,6 +134,7 @@ export default class UploadChunk {
      await this._getChunks()
      this._retryCount += 1
      const response = await this._uploadChunk()
+     // Set new endpoint base on the response
      this._endpoint = response.data.url
 
      this._retryCount = 0
@@ -144,7 +145,7 @@ export default class UploadChunk {
        this._setSuccess(
          this._endpoint,
          this._saveMd5,
-         response.data.id
+         response
        )
      }
  
