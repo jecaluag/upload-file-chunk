@@ -12,6 +12,7 @@ interface IConfig {
   /** Size per chunk Kilobyte (KB), must be divisible by 256 */
   chunkSizeKb: number;
   retries?: number;
+  headers: Record<string, any>
   setProgress: ProgressFn;
   onSuccess: SuccessFn;
   onError: ErrorFn;
@@ -40,6 +41,7 @@ export default class UploadChunk {
   private _chunk!: Blob;
   private _totalChunk: number;
   private _chunkIndex: number;
+  private _additionalHeaders: Record<string, any>;
   private _paused: boolean;
   private _success: boolean;
   private _setProgress: ProgressFn;
@@ -60,6 +62,7 @@ export default class UploadChunk {
     this._totalChunk = Math.ceil(this._file.size / this._chunkSize);
     this._chunkIndex = 0;
     this._saveMd5 = '';
+    this._additionalHeaders = config.headers;
 
     this._setProgress = config.setProgress;
     this._setSuccess = config.onSuccess;
@@ -117,7 +120,7 @@ export default class UploadChunk {
     formdata.append('file', this._chunk);
 
     const requestOptions = {
-      headers,
+      headers: { ...this._additionalHeaders, ...headers },
       method: 'PUT',
       body: formdata,
       signal: this._signal
