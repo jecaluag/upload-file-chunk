@@ -76,3 +76,10 @@ This will start the chunking and uploading of the file. It returns an instance o
   onError: ({ code, message, attemptLeft, chunkNumber }),
 }
 ```
+### Instance Methods
+- `pause()`
+  Pause the current uploading chunk
+- `resume()`
+  Resumes the upload of the paused chunk
+- `abort()`
+   Completely abort the current upload request.
