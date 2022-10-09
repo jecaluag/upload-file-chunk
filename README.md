@@ -33,7 +33,7 @@ const HomePage = (): JSX.Element => {
         uploadInstance.abort()
         ...
       },
-	  })
+})
   }
 }
 ```
@@ -53,7 +53,8 @@ This will start the chunking and uploading of the file. It returns an instance o
   endpoint: "https://yourownapi.com/api/v1/upload-chunk",
 
   // number | required | default: 51200
-  // `chunkSize` is the size in BYTES which will the file will be split into. Must be in multiples of 256.
+  // `chunkSize` is the size in BYTES which will the file will be split into.
+  // MUST be in multiples of 256.
   chunkSize: 51200,
   
   // number | optional | default: 5
@@ -71,7 +72,7 @@ This will start the chunking and uploading of the file. It returns an instance o
 
   // function | required
   // `onError` is a function that will be triggered when an error is occured.
-  // It returns an object that consist of code, error message, number of retry attempth left and the current chunk number.
+  // It returns an object that consist of error code, error message, number of retry attempth left and the current chunk number.
   // Error code: UPLOAD_CHUNK_FAILED,  UPLOAD_CHUNK_ALL_RETRIES_FAILED, VALIDATION_FAILED, FAILED_HASH_MD5,
   onError: ({ code, message, attemptLeft, chunkNumber }),
 }
