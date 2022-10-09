@@ -1,7 +1,7 @@
 # Upload File Chunk
 Simple utility class for uploading chunks of files. It can handle both file chunking and file uploading and works flawlessly with small and large files. It also handles getting file md5 hashes. Written in TypeScript, completely compatible on any front-end frameworks (React.js, Vue.js, Angular, Svelt, etc).
 
-This library is intended to work with [drf-chunked-upload](https://github.com/jkeifer/drf-chunked-upload) python library. But you can fork this library and modify it base on your own needs.
+This library is intended to work with [drf-chunked-upload](https://github.com/jkeifer/drf-chunked-upload) django library. But you can fork this library and modify it base on your own needs.
 
 ## Installation
 ```
@@ -33,7 +33,7 @@ const HomePage = (): JSX.Element => {
         uploadInstance.abort()
         ...
       },
-})
+    })
   }
 }
 ```
@@ -84,3 +84,7 @@ This will start the chunking and uploading of the file. It returns an instance o
   Resumes the upload of the paused chunk
 - `abort()`
    Completely abort the current upload request.
+### Credits
+Upload File Chunk is inspired by [Upchunk](https://github.com/muxinc/upchunk) and [huge uploader](https://github.com/Buzut/huge-uploader/). It's completely coded from scratch and developed for / intended to work with [drf-chunked-upload](https://github.com/jkeifer/drf-chunked-upload).
+### License
+[MIT](https://github.com/jecaluag/upload-file-chunk/blob/main/LICENSE)
