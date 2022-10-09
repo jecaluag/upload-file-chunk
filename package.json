@@ -2,8 +2,8 @@
   "name": "upload-file-chunk",
   "version": "1.0.1",
   "description": "A utility library for uploading files in chunks",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/upload-file-chunk.d.ts",
   "files": [
     "dist/**/*"
   ],
