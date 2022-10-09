@@ -7,7 +7,7 @@ This library is intended to work with [drf-chunked-upload](https://github.com/jk
 ```
 npm install upload-file-chunk
 
-yarn add upload-chunk-file
+yarn add upload-file-chunk
 ```
 ## Basic Usage
 ```js
