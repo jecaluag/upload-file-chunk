@@ -12,7 +12,7 @@ interface IConfig {
   /** Size per chunk Kilobyte (KB), must be divisible by 256 */
   chunkSizeKb: number;
   retries?: number;
-  headers: Record<string, any>
+  headers: Record<string, any>;
   setProgress: ProgressFn;
   onSuccess: SuccessFn;
   onError: ErrorFn;
@@ -70,8 +70,8 @@ export default class UploadChunk {
     this._paused = false;
     this._success = false;
 
-    this._abortController = new AbortController()
-    this._signal = this._abortController.signal
+    this._abortController = new AbortController();
+    this._signal = this._abortController.signal;
 
     this._reader = new FileReader();
 
@@ -123,7 +123,7 @@ export default class UploadChunk {
       headers: { ...this._additionalHeaders, ...headers },
       method: 'PUT',
       body: formdata,
-      signal: this._signal
+      signal: this._signal,
     };
 
     return fetch(this._endpoint, requestOptions).then((response) => response.json());
@@ -186,7 +186,7 @@ export default class UploadChunk {
 
   public abort(): void {
     this.pause();
-    this._abortController.abort()
+    this._abortController.abort();
   }
 
   public pause(): void {
